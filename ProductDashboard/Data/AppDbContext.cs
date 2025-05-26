@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProductDashboard.Models;
 
 namespace ProductDashboard.Data
 {
@@ -9,5 +10,9 @@ namespace ProductDashboard.Data
         {
 
         }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Product> Products { get; set; }
     }
 }
