@@ -62,5 +62,31 @@ namespace ProductDashboard.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if(id == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            var categ = db.Categories.Find(id);
+            if(categ != null)
+            {
+                return View(categ);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult Update(Category category)
+        {
+           
+                db.Categories.Update(category);
+                db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+         
+
+        }
     }
 }
