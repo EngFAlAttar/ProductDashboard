@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductDashboard.Data;
+using ProductDashboard.Models;
 
 namespace ProductDashboard.Controllers
 {
@@ -14,6 +15,52 @@ namespace ProductDashboard.Controllers
         public IActionResult Index()
         {
             return View(db.Categories);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            db.Add(category);
+            db.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if(id == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            var category = db.Categories.Find(id);
+            if (category != null)
+            {
+                return View(category);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmDelete(Category category)
+        {
+            
+            var categ = db.Categories.Find(category.CategoryId);
+            if (category != null)
+            {
+                db.Categories.Remove(categ);
+                db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

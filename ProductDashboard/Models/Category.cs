@@ -8,8 +8,6 @@ namespace ProductDashboard.Models
         public  int CategoryId { get; set; }
         public string Name { get; set; }
 
-        [ForeignKey("Product")]
-        public int ProductId { get; set; }
         public List<Product>? Products { get; set; }
 
     }
